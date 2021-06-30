@@ -5,6 +5,8 @@ const port = 3000
 
 var indexRouter = require('./routes/index');
 var newsApiRouter = require('./routes/newsapi');
+var mediumRouter = require('./routes/medium')
+var webhoseRouter = require('./routes/webhose')
 
 /*
 app.get('/', (req, res) => {
@@ -14,6 +16,8 @@ app.get('/', (req, res) => {
 
 app.use('/', indexRouter);
 app.use('/newsapi', newsApiRouter);
+app.use('/medium', mediumRouter)
+app.use('/webhose', webhoseRouter)
 
 app.get('*', function(req, res){
     res.status(404).send('404 - not found');
