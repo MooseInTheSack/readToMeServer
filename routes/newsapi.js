@@ -6,7 +6,7 @@ var newsApiController = require('../controllers/newsApiController');
 /// BOOK ROUTES ///
 
 // GET catalog home page.
-router.get('/', newsApiController.topStories);
-router.get('/wsj', newsApiController.topWSJStories)
+router.get('/', newsApiController.topHeadlines);
+router.get('/wsj', newsApiController.topWSJStories);
 
 module.exports = router;
