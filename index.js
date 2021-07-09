@@ -1,23 +1,48 @@
 
 const express = require('express')
+const mongoose = require('mongoose');
+
+//Express
 const app = express()
 const port = 3000
 
-var indexRouter = require('./routes/index');
-var newsApiRouter = require('./routes/newsapi');
-var mediumRouter = require('./routes/medium')
-var webhoseRouter = require('./routes/webhose')
+//Routes
+const indexRouter = require('./routes/index');
+const newsApiRouter = require('./routes/newsapi');
+const mediumRouter = require('./routes/medium')
+const webhoseRouter = require('./routes/webhose')
 
-/*
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-*/
+//Mongoode/MongoDB
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true);
+//connect to mongoDB
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.connection.on('error', (err) => {
+  console.error(err);
+  console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
+  process.exit();
+});
 
+//Express Routes
 app.use('/', indexRouter);
 app.use('/newsapi', newsApiRouter);
 app.use('/medium', mediumRouter)
 app.use('/webhose', webhoseRouter)
+
+/**
+ * Error Handler.
+ */
+ if (process.env.NODE_ENV === 'development') {
+  // only use in development
+  app.use(errorHandler());
+} else {
+  app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).send('Server Error');
+  });
+}
 
 app.get('*', function(req, res){
     res.status(404).send('404 - not found');
