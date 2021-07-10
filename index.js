@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 var cron = require('node-cron');
 
 const retriever = require('./retrievers/retriever')
+const fourChan = require('./retrievers/fourChan')
 
 //Express
 const app = express()
@@ -12,7 +13,6 @@ const port = 3000
 //Routes
 const indexRouter = require('./routes/index');
 const newsApiRouter = require('./routes/newsapi');
-const mediumRouter = require('./routes/medium')
 const webhoseRouter = require('./routes/webhose')
 
 //Mongoode/MongoDB
@@ -31,7 +31,6 @@ mongoose.connection.on('error', (err) => {
 //Express Routes
 app.use('/', indexRouter);
 app.use('/newsapi', newsApiRouter);
-app.use('/medium', mediumRouter)
 app.use('/webhose', webhoseRouter)
 
 /**
@@ -53,7 +52,7 @@ app.get('*', function(req, res){
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
-  retriever.getWebhoseStories();
+  fourChan.getThreads();
   cron.schedule('0 0 6-18 * * *', () => {
     console.log('running a task every hour from 6am to 6pm');
 
