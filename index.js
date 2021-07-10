@@ -1,6 +1,9 @@
 
 const express = require('express')
 const mongoose = require('mongoose');
+var cron = require('node-cron');
+
+const retriever = require('./retrievers/retriever')
 
 //Express
 const app = express()
@@ -50,4 +53,9 @@ app.get('*', function(req, res){
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
+  retriever.getWebhoseStories();
+  cron.schedule('0 0 6-18 * * *', () => {
+    console.log('running a task every hour from 6am to 6pm');
+
+  });
 })
