@@ -1,10 +1,12 @@
 
 const express = require('express')
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 var cron = require('node-cron');
 
-const retriever = require('./retrievers/retriever')
+const webhose = require('./retrievers/webhose')
 const fourChan = require('./retrievers/fourChan')
+
+require('./database/db')
 
 //Express
 const app = express()
@@ -16,6 +18,7 @@ const newsApiRouter = require('./routes/newsapi');
 const webhoseRouter = require('./routes/webhose')
 
 //Mongoode/MongoDB
+/*
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
@@ -27,6 +30,7 @@ mongoose.connection.on('error', (err) => {
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
 });
+*/
 
 //Express Routes
 app.use('/', indexRouter);
