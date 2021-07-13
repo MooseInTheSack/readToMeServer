@@ -15,22 +15,6 @@ db.once('open', () => console.log("MongoDB Connection successfully established")
 
 // seed vacation data (if necessary)
 const Thread = require('../models/fourChanThread.js')
-Thread.find((err, threads) => {
-  if(err) return console.error(err)
-  if(threads.length) return
-
-  new Thread({
-    title: 'Thread Title 1',
-    replies: ['reply 1', 'reply 2', 'reply 3'],
-    date: '2021-07-11',
-  }).save()
-
-  new Thread({
-    title: 'Thread Title w',
-    replies: ['reply 1', 'reply 2', 'reply 3'],
-    date: '2021-07-11',
-  }).save()
-})
 
 //const threadListener = require('./models/threadListener')
 

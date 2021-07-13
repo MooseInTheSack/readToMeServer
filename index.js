@@ -56,9 +56,9 @@ app.get('*', function(req, res){
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
-  fourChan.getThreads();
+  fourChan.getThreads("pol");
   cron.schedule('0 0 6-18 * * *', () => {
     console.log('running a task every hour from 6am to 6pm');
-
+    fourChan.getThreads("pol");
   });
 })
