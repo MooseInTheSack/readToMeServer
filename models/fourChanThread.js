@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const threadSchema = new mongoose.Schema({
+  board: String,
   title: String,
   replies: Array,
   source: String,

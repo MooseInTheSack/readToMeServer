@@ -17,6 +17,7 @@ const getRepliesToThread = async (boardName, threadId) => {
         
                 threadResponse.data.posts.forEach(reply => {
                     Thread.create({
+                        board: boardName,
                         title: title,
                         replies: replyArray,
                         date: time,

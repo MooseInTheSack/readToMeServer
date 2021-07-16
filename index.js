@@ -16,6 +16,7 @@ const port = 3000
 const indexRouter = require('./routes/index');
 const newsApiRouter = require('./routes/newsapi');
 const webhoseRouter = require('./routes/webhose')
+const fourChanRouter = require('./routes/fourChan')
 
 //Mongoode/MongoDB
 /*
@@ -36,6 +37,8 @@ mongoose.connection.on('error', (err) => {
 app.use('/', indexRouter);
 app.use('/newsapi', newsApiRouter);
 app.use('/webhose', webhoseRouter)
+app.use('/fourchan', fourChanRouter)
+
 
 /**
  * Error Handler.
@@ -57,6 +60,9 @@ app.get('*', function(req, res){
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
   fourChan.getThreads("pol");
+  fourChan.getThreads("int");
+  fourChan.getThreads("biz");
+  
   cron.schedule('0 0 6-18 * * *', () => {
     console.log('running a task every hour from 6am to 6pm');
     fourChan.getThreads("pol");
