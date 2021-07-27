@@ -6,7 +6,7 @@ var cron = require('node-cron');
 const webhose = require('./retrievers/webhose')
 const fourChan = require('./retrievers/fourChan')
 
-require('./database/db')
+//require('./database/db')
 
 //Express
 const app = express()
@@ -19,16 +19,21 @@ const webhoseRouter = require('./routes/webhose')
 const fourChanRouter = require('./routes/fourChan')
 
 //Mongoode/MongoDB
-
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
+
 //connect to mongoDB
-mongoose.connect(process.env.MONGODB_STRING);
+const uri = process.env.MONGODB_STRING
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 15000
+});
 mongoose.connection.on('error', (err) => {
   console.error(err);
-  console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
+  console.log('MongoDB connection error. Please make sure MongoDB is running.');
   process.exit();
 });
 
