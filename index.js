@@ -19,19 +19,19 @@ const webhoseRouter = require('./routes/webhose')
 const fourChanRouter = require('./routes/fourChan')
 
 //Mongoode/MongoDB
-/*
+
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 //connect to mongoDB
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_STRING);
 mongoose.connection.on('error', (err) => {
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
 });
-*/
+
 
 //Express Routes
 app.use('/', indexRouter);
