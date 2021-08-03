@@ -5,7 +5,7 @@ const he = require('he');
 
 const getRepliesToThread = async (boardName, threadId) => {
     axios.get(`https://a.4cdn.org/${boardName}/thread/${threadId}.json`)
-        .then(function (threadResponse) {
+        .then((threadResponse) => {
             
             const replyArray = threadResponse.data.posts.map(obj => {
                 
@@ -22,7 +22,10 @@ const getRepliesToThread = async (boardName, threadId) => {
                         replies: replyArray,
                         date: time,
                     }, function (err, small) {
-                        if (err) return handleError(err);
+                        if (err) {
+                            console.log('Error creating Threads: ', err)
+                            throw err;
+                        }
 
                         // saved!
                         console.log("ducky successfully saved fourchan thread")
@@ -52,13 +55,16 @@ const getThreads = async (boardName) => {
             //const firstThreadId = response.data[0].threads[2].no
             
             Thread.deleteMany({}, (err, result) => {
-                if (err) return handleError(err);
+                if (err) {
+                    console.log('Error deleting Threads: ', err)
+                    throw err;
+                }
                 console.log("successfully deleted elements before entry...")
                 
                 firstTwoPageIds.forEach(threadId => {
                     setTimeout(() => {
                         getRepliesToThread(board, threadId) 
-                    }, 1000)
+                    }, 30000)
                 }) 
             })
         }
