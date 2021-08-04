@@ -60,17 +60,21 @@ mongoose.connection.on('error', (err) => {
 });
 mongoose.connection.once('open', function() {
   // we're connected!
-  console.log('ducky successfully connected to Mongo')
+  console.log('Successfully connected to Mongo')
   app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
-    //fourChan.getThreads("pol");
-    //fourChan.getThreads("int");
-    //fourChan.getThreads("biz");
+    fourChan.getThreads("pol")
+    //fourChan.getThreads("int")
+    //fourChan.getThreads("biz")
     gnewsRetriever.getTopHeadlines()
     
     cron.schedule('0 0 6-18 * * *', () => {
       console.log('running a task every hour from 6am to 6pm');
-      fourChan.getThreads("pol");
+      fourChan.getThreads("pol")
+      fourChan.getThreads("int")
+      fourChan.getThreads("biz")
+      gnewsRetriever.getTopHeadlines()
+
     });
   })
 });

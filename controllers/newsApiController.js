@@ -47,13 +47,11 @@ const getTopWSJStories = () => {
 // Display list of all Authors.
 exports.topHeadlines = async function(req, res) {
     const topHeadlines = await getTopHeadlines()
-    console.log('ducky topHeadlines: ', topHeadlines)
     res.send(JSON.stringify(topHeadlines));
 };
 
 exports.topWSJStories = async function(req, res) {
     const topWSJStories = await getTopWSJStories()
-    console.log('ducky topWSJStories: ', topWSJStories)
     res.send(JSON.stringify(topWSJStories))
 }
 

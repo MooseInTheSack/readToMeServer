@@ -27,8 +27,7 @@ const getRepliesToThread = async (boardName, threadId) => {
                             throw err;
                         }
 
-                        // saved!
-                        console.log("ducky successfully saved fourchan thread")
+                        console.log("Successfully saved fourchan thread")
                     });
                 
                 })
@@ -44,15 +43,11 @@ const getThreads = async (boardName) => {
     axios.get(`https://a.4cdn.org/${boardName}/threads.json`)
     .then(function (response) {
         // handle success
-        console.log('ducky response: ', response.data);
         
         if(response.data && response.data.length > 1) {
             const firstTwoPageIds = response.data[0].threads.map(threadId => threadId.no).concat(response.data[1].threads.map(threadId => threadId.no))
             //remove first two since they're stickies
             firstTwoPageIds.splice(0, 2)
-            console.log('ducky firstTwoPageIds: ', firstTwoPageIds)
-
-            //const firstThreadId = response.data[0].threads[2].no
             
             Thread.deleteMany({}, (err, result) => {
                 if (err) {

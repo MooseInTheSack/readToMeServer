@@ -50,9 +50,6 @@ const getTopStories = async function(req, res) {
     }
         
     return await client.query('filterWebContent', query_params).then(output => {
-        console.log('ducky output: ', output)
-        //console.log(output['posts'][0]['text']); // Print the text of the first post
-        //console.log(output['posts'][0]['published']); // Print the text of the first post publication date
         if(!output || !output.posts || !output.posts) {
             return({code: "404", message: "Could not get output from getTopStories on webhose"})
         }
@@ -66,16 +63,11 @@ const getTopStoriesByTopic = async function(req, res) {
         res.send({code: 400, message: "No topic was supplied in the parameter"})
     }
     const topic = req.params.topic
-    console.log('ducky topic: ', topic)
     const query_params = {
         "q": `${topic} language:english num_chars:>100`,
     }
-    console.log('ducky query_params: ', query_params)
         
     const output = await client.query('filterWebContent', query_params).then(output => {
-        console.log('ducky output: ', output)
-        //console.log(output['posts'][0]['text']); // Print the text of the first post
-        //console.log(output['posts'][0]['published']); // Print the text of the first post publication date
         if(!output || !output.posts) {
             return({code: "404", message: "Could not get output from getTopStoriesByTopic on webhose"})
         }
@@ -96,9 +88,6 @@ const getTopStoriesByCategory = async function(req, res) {
     }
         
     const output = await client.query('filterWebContent', query_params).then(output => {
-        console.log('ducky output: ', output)
-        //console.log(output['posts'][0]['text']); // Print the text of the first post
-        //console.log(output['posts'][0]['published']); // Print the text of the first post publication date
         if(!output || !output.posts) {
             return({code: "404", message: "Could not get output from getTopStoriesByCategory on webhose"})
         }

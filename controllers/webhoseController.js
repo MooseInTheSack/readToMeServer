@@ -10,7 +10,5 @@ exports.topStories = async function(req, res) {
         }
     })
     
-    console.log('ducky results: ', results)
-
     res.send({status: 201, content: results})
 }
