@@ -11,7 +11,7 @@ const newsapi = new NewsAPI(newsAPIKey);
 const getTopHeadlines = (keyword, category, country) => {
     // To query top headlines
     // All options passed to topHeadlines are optional, but you need to include at least one of them
-    newsapi.v2.topHeadlines({
+    return newsapi.v2.topHeadlines({
         q: keyword,
         category: category,
         language: 'en',
@@ -24,6 +24,7 @@ const getTopHeadlines = (keyword, category, country) => {
             articles: [...]
         }
         */
+       return response
     });
 }
 
